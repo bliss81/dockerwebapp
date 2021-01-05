@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_title }}</title>
+
+
+</head>
+
+<body>
+
+<!--CONTAINER-->
+<div class="container">
+    <h1 class="header center orange-text">{{ header }}</h1>
+    <h4 class="center light-blue-text">{{ sub_header }}</h4>
+
+   
+    <p>Choose Container to delete:</p>
+      
+           <form action="/delcond" method="post">    
+         {% for container in containers %}
+            <input type="radio" id="cont" name="cont" value="{{ container.0 }}">
+			<label for="cont">{{ container.0 }}-{{ container.1 }}-{{ container.2 }}-{{ container.3 }}</label><br>
+         {% endfor %}
+		 <input type="submit" value="Submit">
+</form>	    
+       
+    </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<li class="collection-item"><a href="/">Main Menu</a></li></body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+     <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='table.css')}}"">
+	
+	<meta charset="UTF-8">
+    <title>{{ site_title }}</title>
+
+
+</head>
+
+<body>
+
+<!--CONTAINER-->
+<div class="container">
+    <h1 class="header center orange-text">{{ header }}</h1>
+    <h4 class="center light-blue-text">{{ sub_header }}</h4>
+
+   
+    <p>Image list:</p>
+           
+       <table class="blueTable">
+		{% for image in images %}
+            <tr><td>{{ image.0 }}</a></td><td>{{ image.1 }}</td></td></tr>
+         {% endfor %}
+		</table>
+    </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<li class="collection-item"><a href="/">Main Menu</a></li>
+
+</body>
+</html>

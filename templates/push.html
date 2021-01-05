@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_title }}</title>
+
+</head>
+
+<body>
+
+<!--CONTAINER-->
+<div class="container">
+    <h1 class="header center orange-text">{{ header }}</h1>
+    <h4 class="center light-blue-text">{{ sub_header }}</h4>
+
+    <p>Docker Hub Login:</p>
+    <ul class="collection with-header">
+ <h4> if you didnt loging to you docker hub, do that first </h4>
+ <form action="/pushd" method="post">
+    <p>Image list:</p>
+		{% for image in images %}
+            <input type="radio" id="imgname" name="imgname" value="{{ image.0 }}">
+			<label for="imgname">{{ image.0 }}{{ image.1 }}</label><br>
+         {% endfor %}
+		</div> 
+  <label for="tagname">what tag / version do you want to push it as:</label><br>
+  <input type="text" id="tagname" name="tagname"><br>
+  <label for="user">Enter you docker hub username</label><br>
+  <input type="text" id="user" name="user"><br>
+  <label for="repo">Enter you docker repository name</label><br>
+  <input type="text" id="repo" name="repo"><br>
+   <input type="submit" value="Submit">
+</form>
+    </ul>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<li class="collection-item"><a href="/">Main Menu</a></li>
+</body>
+</html>

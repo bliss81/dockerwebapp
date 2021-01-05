@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_title }}</title>
+   
+
+</head>
+
+<body>
+
+<!--CONTAINER-->
+<div class="container">
+    <h1 class="header center orange-text">{{ header }}</h1>
+    <h4 class="center light-blue-text">{{ sub_header }}</h4>
+
+    <p>Docker Hub Login:</p>
+    <ul class="collection with-header">
+ <form action="/cr8cond" method="post">
+  <label for="imgname">Run Container based on What Image (mandatory):</label><br>
+  <input type="text" id="imgname" name="imgname"><br>
+  <label for="contname">Desired Container Name:</label><br>
+  <input type="text" id="contname" name="contname"><br>
+  <label for="command">What command to execute on Container:</label><br>
+  <input type="text" id="command" name="command"><br>
+  <label for="cport">Destination Port on Container:</label><br>
+  <input type="text" id="cport" name="cport"><br>
+  <label for="hport"> Access Port on Host :</label><br>
+  <input type="text" id="hport" name="hport"><br>
+  <input type="submit" value="Submit">
+</form>
+    </ul>
+</div>
+
+<br>
+<br>
+<br>
+<li class="collection-item"><a href="/">Main Menu</a></li>
+</body>
+</html>
