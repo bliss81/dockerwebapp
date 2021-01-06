@@ -1,7 +1,9 @@
 #create new dir
+sudo apt install git
 mkdir app
 cd app
 #git pull my files
+git init
 git pull https://github.com/bliss81/dockerwebapp.git
 
 #update linux 
