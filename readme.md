@@ -15,4 +15,8 @@ apt-cache policy docker-ce
 sudo apt install docker-ce
 # enable docker without sudo to current user
 sudo usermod -aG docker ${USER}
-
+#install python3
+sudo apt-get install python3 python3-pip -y
+#install flask
+sudo pip3 install flask
+sudo pip3 install flask-wtf
