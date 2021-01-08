@@ -20,7 +20,7 @@
            <form action="/delcond" method="post">    
          {% for container in containers %}
             <input type="radio" id="cont" name="cont" value="{{ container.0 }}">
-			<label for="cont">{{ container.0 }}-{{ container.1 }}-{{ container.2 }}-{{ container.3 }}</label><br>
+			<label for="cont">{{ container }}</label><br>
          {% endfor %}
 		 <input type="submit" value="Submit">
 </form>	    

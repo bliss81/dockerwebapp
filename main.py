@@ -3,6 +3,7 @@ import os
 import re
 import sqlite3
 import csv
+import subprocess
 
 
 app = Flask(__name__)
@@ -15,20 +16,20 @@ def downim():
                        site_title="doron.docker")
 @app.route('/downimd')
 def downimd():
-    imgname=request.args.get('imgname')
-    cmd='sudo docker pull {} 2>temp1.txt >>temp1.txt'.format(imgname)
-    os.system('echo "$({})"'.format(cmd))
-    cmd='cat temp1.txt | (grep -o "Status: Downloaded\|Error response\|Image is up to date" > temp.txt)'
-    os.system('echo "$({})"'.format(cmd))
-    with open('temp.txt', newline='') as f:
-     data = f.readlines()
-    return render_template('results.html',header=data, sub_header='Main Menu:',site_title="doron.docker")
+ imgname=request.args.get('imgname')
+ cmd=['sudo', 'docker', 'pull', "{}".format(imgname)]
+ proc = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+ data=[]
+ for line in proc.stdout:
+  data.append(line.decode('utf-8').split())
+ print(data)
+ return render_template('results.html',header=data, sub_header='Main Menu:',site_title="doron.docker")
 
 @app.route('/cr8con')   
 def cr8con():
        
     return render_template('cr8con.html',header='Doron Fiala - Create New Container', sub_header='download image', list_header="download image",
-                       site_title="doron.docker")
+                       images=get_images(),site_title="doron.docker")
                        
 @app.route('/cr8cond',methods=['POST'])   
 def cr8cond():
@@ -169,12 +170,27 @@ def lstimg (cmd):
   return images 
   
 def get_containers():
-  containers=lstcont("sudo docker ps")
-  return containers
+ containers=[]
+ cmd=["docker","ps"]
+ proc = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+ for line in proc.stdout:
+  containers.append(line.decode('utf-8').split())
+ containers.pop(0)
+ print(containers)
+ return containers
+ 
+ 
 
 def get_images():
-  images=lstimg("sudo docker images")
-  return images
+ images=[]
+ cmd=["docker","images"]
+ proc = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+ for line in proc.stdout:
+  images.append(line.decode('utf-8').split())
+ images.pop(0)
+ print(images)
+ return(images) 
+ 
 
  
 if __name__ == '__main__':

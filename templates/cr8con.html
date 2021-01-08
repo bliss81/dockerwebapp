@@ -20,7 +20,7 @@
   <label for="imgname">choose local image to run container from:</label><br>
   {% for image in images %}
             <input type="radio" id="imgname" name="imgname" value="{{ image.2 }}">
-			<label for="imgname">{{ image.0 }}-{{ image.1 }}-{{ image.2 }}</label><br>
+			<label for="imgname">{{ image }}</label><br>
          {% endfor %}
   <br>
   <label for="contname">Desired Container Name:</label><br>
