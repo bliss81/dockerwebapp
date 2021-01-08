@@ -76,10 +76,10 @@ def login():
     return render_template('login.html',header='Doron Fiala - login docker hub', sub_header='Delete Container', list_header="containers:",
                        site_title="doron.docker")
 
-@app.route('/logind')
+@app.route('/logind',methods=['POST'])
 def logind():
-    user=request.args.get('user')
-    passw=request.args.get('pass')
+    user=request.form.get('user')
+    passw=request.form.get('pass')
     if passw != "" and user != "":
      cmd="sudo docker login -u {} -p {} 2>temp1.txt >>temp1.txt".format(user,passw)
      os.system('echo "$({})"'.format(cmd))

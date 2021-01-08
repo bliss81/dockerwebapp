@@ -17,8 +17,12 @@
     <p>Docker Hub Login:</p>
     <ul class="collection with-header">
  <form action="/cr8cond" method="post">
-  <label for="imgname">Run Container based on What Image (mandatory):</label><br>
-  <input type="text" id="imgname" name="imgname"><br>
+  <label for="imgname">choose local image to run container from:</label><br>
+  {% for image in images %}
+            <input type="radio" id="imgname" name="imgname" value="{{ image.2 }}">
+			<label for="imgname">{{ image.0 }}-{{ image.1 }}-{{ image.2 }}</label><br>
+         {% endfor %}
+  <br>
   <label for="contname">Desired Container Name:</label><br>
   <input type="text" id="contname" name="contname"><br>
   <label for="command">What command to execute on Container:</label><br>
@@ -35,6 +39,7 @@
 <br>
 <br>
 <br>
+<li class="collection-item"><a href="/downim">Download Image From Docker Hub</a></li>
 <li class="collection-item"><a href="/">Main Menu</a></li>
 </body>
 </html>

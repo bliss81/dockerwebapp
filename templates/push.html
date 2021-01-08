@@ -16,8 +16,9 @@
     <p>Docker Hub Login:</p>
     <ul class="collection with-header">
  <h4> if you didnt loging to you docker hub, do that first </h4>
+ <li class="collection-item"><a href="/login">Login to DockerHub</a></li>
  <form action="/pushd" method="post">
-    <p>Image list:</p>
+    <p>Choose Image you want to push from list:</p>
 		{% for image in images %}
             <input type="radio" id="imgname" name="imgname" value="{{ image.0 }}">
 			<label for="imgname">{{ image.0 }}{{ image.1 }}</label><br>
@@ -41,5 +42,6 @@
 <br>
 
 <li class="collection-item"><a href="/">Main Menu</a></li>
+<li class="collection-item"><a href="/login">Login to DockerHub</a></li>
 </body>
 </html>
