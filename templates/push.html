@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ site_title }}</title>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -15,23 +15,22 @@
 
     <p>Docker Hub Login:</p>
     <ul class="collection with-header">
- <h4> if you didnt loging to you docker hub, do that first </h4>
- <li class="collection-item"><a href="/login">Login to DockerHub</a></li>
- <form action="/pushd" method="post">
+  <form action="/pushd" method="post">
     <p>Choose Image you want to push from list:</p>
 		{% for image in images %}
             <input type="radio" id="imgname" name="imgname" value="{{ image.0 }}">
 			<label for="imgname">{{ image.0 }}{{ image.1 }}</label><br>
          {% endfor %}
 		</div> 
-  <label for="tagname">what tag / version do you want to push it as:</label><br>
+  <label for="tagname">what tag / version do you want to push it as:</label>
   <input type="text" id="tagname" name="tagname"><br>
-  <label for="user">Enter you docker hub username</label><br>
-  <input type="text" id="user" name="user"><br>
-  <label for="repo">Enter you docker repository name</label><br>
+  <label for="user">your docker login name is:</label>
+  <input id="user" name="user" value={{ username }}><br>
+  <label for="repo">Enter you docker repository name</label>
   <input type="text" id="repo" name="repo"><br>
-   <input type="submit" value="Submit">
+   <input type="submit" value="Submit" onclick="$('#loading').show();">
 </form>
+<div id="loading" style="display:none;"><img src="https://media3.giphy.com/media/3o7bu3XilJ5BOiSGic/200w.webp?cid=ecf05e475j0bsox2uxrvc9isepq5dfsxqpq6pgc33s0oe67a&rid=200w.webp" alt="" />Loading!</div>
     </ul>
 </div>
 

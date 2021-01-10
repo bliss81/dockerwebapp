@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ site_title }}</title>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 </head>
 
 <body>
@@ -19,8 +19,9 @@
  <form action="/downimd">
   <label for="user">Image Name:</label><br>
   <input type="text" id="imgname" name="imgname"><br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="Submit" onclick="$('#loading').show();">
 </form>
+<div id="loading" style="display:none;"><img src="https://media3.giphy.com/media/3o7bu3XilJ5BOiSGic/200w.webp?cid=ecf05e475j0bsox2uxrvc9isepq5dfsxqpq6pgc33s0oe67a&rid=200w.webp" alt="" />Loading!</div>
     </ul>
 </div>
 
