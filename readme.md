@@ -4,7 +4,7 @@
 **2** basic setup
 > sudo apt install net-tools
 
-> sudo apt install openssh-server0
+> sudo apt install openssh-server
 
 > sudo apt install curl
 
