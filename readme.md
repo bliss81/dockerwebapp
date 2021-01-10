@@ -18,10 +18,10 @@
 
 >git pull https://github.com/bliss81/dockerwebapp.git
 
-**5**update linux 
+**5** update linux 
 >sudo apt update
 
-**6**download repository
+**6** download repository
 >sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
 >sudo apt update
@@ -47,4 +47,4 @@
 
 >run flask --host=0.0.0.0
 
-#browse to the machine ip with port 5000.
+**12** browse to the machine ip with port 5000.
