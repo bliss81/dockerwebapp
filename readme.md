@@ -6,6 +6,8 @@
 
 > sudo apt install openssh-server0
 
+> sudo apt install curl
+
 **3** create new dir
 > sudo apt install git
 
@@ -22,6 +24,8 @@
 >sudo apt update
 
 **6** download repository
+>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
 >sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
 >sudo apt update
