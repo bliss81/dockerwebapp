@@ -1,16 +1,22 @@
+
 **1** set up ubuntu machine 
 
 **2** basic setup
 > sudo apt install net-tools
+
 > sudo apt install openssh-server0
+
 **3** create new dir
 > sudo apt install git
+
 > mkdir app
+
 > cd app
 
-#pull my files from github
-git init
-git pull https://github.com/bliss81/dockerwebapp.git
+**4** pull my files from github
+>git init
+
+>git pull https://github.com/bliss81/dockerwebapp.git
 
 #update linux 
 sudo apt update
