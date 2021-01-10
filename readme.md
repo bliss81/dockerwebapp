@@ -49,6 +49,6 @@
 **11** load my app
 >export FLASK_APP=main.py
 
->run flask --host=0.0.0.0
+>flask run --host=0.0.0.0
 
 **12** browse to the machine ip with port 5000.
