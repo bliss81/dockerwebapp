@@ -1,12 +1,12 @@
-#set up ubuntu machine 
+**1** set up ubuntu machine 
 
-#basic setup
-sudo apt install net-tools
-sudo apt install openssh-server0
-#create new dir
-sudo apt install git
-mkdir app
-cd app
+**2** basic setup
+> sudo apt install net-tools
+> sudo apt install openssh-server0
+**3** create new dir
+> sudo apt install git
+> mkdir app
+> cd app
 
 #pull my files from github
 git init
