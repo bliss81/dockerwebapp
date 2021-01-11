@@ -4,24 +4,29 @@ import re
 import sqlite3
 import subprocess
 
+#flask application definition.
 app = Flask(__name__)
 global login
 login="no" 
 
+#flask site route for image download form
 @app.route('/downim')   
 def downim():
         
     return render_template('downim.html',header='Doron Fiala - download image from docker hub', sub_header='download image', list_header="download image",
                        site_title="doron.docker")
+#flask route to catch the download image form and download the image
 @app.route('/downimd')
 def downimd():
  imgname=request.args.get('imgname')
+#get the "get" data  from the form
  cmd=['sudo', 'docker', 'pull', "{}".format(imgname)]
  data=[]
  proc = subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
- 
+ #use of subprocess mosule to run docker as subproces of python and catch output
  for line in proc.stdout:
   data.append(line.decode('utf-8').split())
+#decode output from bytes to string and insert to list
  newdata=[]
  for lst in data:
   for i in lst:
@@ -30,16 +35,20 @@ def downimd():
  strings=' '.join(newdata)
  print(newdata)
  print("edededdededed",strings)
+#return the output as list and send it to html template
  return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
+#flask site route for create conttainer form
 @app.route('/cr8con')   
 def cr8con():
        
     return render_template('cr8con.html',header='Doron Fiala - Create New Container', sub_header='download image', list_header="download image",
                        images=get_images(),site_title="doron.docker")
-                       
+        
+ #flask site route to catch the data from create container form
 @app.route('/cr8cond',methods=['POST'])   
 def cr8cond():
+    #get the "post" data  from the form
     imgname=request.form.get('imgname')
     contname=request.form.get('contname')
     command=request.form.get('command')
@@ -50,6 +59,7 @@ def cr8cond():
       cmd=['sudo', 'docker', 'run','-d','--rm','-ti','-p','{}:{}'.format(hport,cport),'--name','{}'.format(contname),'{}'.format(imgname),'{}'.format(command)]
      else:
       cmd=['sudo', 'docker', 'run','-d','--rm','-ti','-p','{}:{}'.format(hport,cport),'--name','{}'.format(contname),'{}'.format(imgname)]
+#use of subprocess mosule to run docker as subproces of python and catch output
      proc = subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
      data=[]
      for line in proc.stdout:
@@ -65,6 +75,7 @@ def cr8cond():
       cmd=['sudo', 'docker', 'run','-d','--rm','-ti','--name','{}'.format(contname),'{}'.format(imgname), '{}'.format(command)]
      else:
       cmd=['sudo', 'docker', 'run','-d','--rm','-ti','--name','{}'.format(contname),'{}'.format(imgname)]
+#use of subprocess mosule to run docker as subproces of python and catch output
      proc = subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
      data=[]
      for line in proc.stdout:
@@ -75,10 +86,12 @@ def cr8cond():
        newdata.append(i)
      strings=''
      strings=' '.join(newdata)    
+#return the output as list and send it to html template
     return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
 @app.route('/push')   
 def push():
+        #use sqlite database to store the dockerhub credentials and login status
    conn = sqlite3.connect('data.db')
    c = conn.cursor()
    c.execute('SELECT * FROM login')
@@ -95,6 +108,7 @@ def push():
                        images=get_images(),username=username,site_title="doron.docker")
    else:   
     print("not logged in")
+#return the output as list and send it to html template
     return render_template('login.html',header='Doron Fiala - Docker Menu', sub_header='push Images', list_header="Images:",
                        images=get_images(), site_title="doron.docker")   
                        
@@ -105,6 +119,7 @@ def pushd():
     user=request.form.get('user')
     repo=request.form.get('repo')
     cmd=['sudo', 'docker', 'tag','{}'.format(imgname),'{}/{}:{}'.format(user,repo,tagname)]
+#use of subprocess mosule to run docker as subproces of python and catch output
     proc = subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     data=[]
     for line in proc.stdout:
@@ -119,13 +134,14 @@ def pushd():
       newdata.append(i)
     strings=''
     strings=' '.join(newdata)
+#return the output as list and send it to html template
     return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
 
 
 @app.route('/login')
 def login():
-        
+        #return the output as list and send it to html template
     return render_template('login.html',header='Doron Fiala - login docker hub', sub_header='Delete Container', list_header="containers:",
                        site_title="doron.docker")
 
@@ -134,6 +150,7 @@ def logind():
  user=request.form.get('user')
  passw=request.form.get('pass')
  if passw != "" and user != "":
+        #use of subprocess mosule to run docker as subproces of python and catch output
   cmd=['sudo', 'docker', 'login','-u','{}'.format(user),'-p','{}'.format(passw)]
   proc = subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
   data=[]
@@ -145,6 +162,7 @@ def logind():
     newdata.append(i)
   strings=''
   strings=' '.join(newdata)
+        #use sqlite database to store/recall the dockerhub credentials and login status
   if "Login Succeeded" in strings:
    conn = sqlite3.connect('data.db')
    c = conn.cursor()
@@ -165,11 +183,13 @@ def logind():
    print("not logged in")
  else:
   strings="error: user or password empty"
+#return the output as list and send it to html template
  return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
 @app.route('/logout')
 def logout():
   cmd=['sudo', 'docker', 'logout']
+#use of subprocess mosule to run docker as subproces of python and catch output
   proc = subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
   data=[]
   for line in proc.stdout:
@@ -180,6 +200,7 @@ def logout():
     newdata.append(i)
   strings=''
   strings=' '.join(newdata)
+        #use sqlite database to store / recall the dockerhub credentials and login status
   conn = sqlite3.connect('data.db')
   c = conn.cursor()
   c.execute('''Drop table if exists login''')
@@ -188,10 +209,12 @@ def logout():
   conn.commit()
   conn.close()
   print("logged out")
+#return the output as list and send it to html template
   return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
                        
 @app.route('/lstim')
 def lstim():
+        #call funtion d send  the output to html template
     return render_template('lstim.html',header='Doron Fiala - Docker Menu', sub_header='list Images', list_header="Images:",
                        images=get_images(), site_title="doron.docker")
 
@@ -204,6 +227,7 @@ def lstco():
 def delim():
     imgname=request.args.get('img')
     cmd="sudo docker image rm -f {}".format(imgname)
+        #use of os mosule to run docker as shell process not catching output
     os.system('echo "$({})"'.format(cmd))
     return render_template('delim.html',header='Doron Fiala - Docker Menu', sub_header='Delete Image', list_header="Images:",
                        images=get_images(), site_title="doron.docker")
@@ -231,6 +255,7 @@ def delcond():
 
 @app.route('/')
 def index():
+                #use sqlite database to store / recall the dockerhub credentials and login status
  conn = sqlite3.connect('data.db')
  c = conn.cursor()
  c.execute('''CREATE TABLE if not EXISTS login(status text, user text)''')
