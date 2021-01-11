@@ -1,6 +1,8 @@
+#importing flask for web capabilities
 from flask import Flask,render_template,request
+#importing os and subprocess for running shell commands and getting output
 import os
-import re
+#importing sqlite for usuing database
 import sqlite3
 import subprocess
 
