@@ -89,6 +89,7 @@ def cr8cond():
 #return the output as list and send it to html template
     return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
+#flask site route for image push form
 @app.route('/push')   
 def push():
         #use sqlite database to store the dockerhub credentials and login status
@@ -111,7 +112,7 @@ def push():
 #return the output as list and send it to html template
     return render_template('login.html',header='Doron Fiala - Docker Menu', sub_header='push Images', list_header="Images:",
                        images=get_images(), site_title="doron.docker")   
-                       
+ #flask site route for getting iform information from image push form
 @app.route('/pushd',methods=['POST'])   
 def pushd():
     imgname=request.form.get('imgname')
@@ -138,13 +139,14 @@ def pushd():
     return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
 
-
+#flask site route for docker hub login form
 @app.route('/login')
 def login():
         #return the output as list and send it to html template
     return render_template('login.html',header='Doron Fiala - login docker hub', sub_header='Delete Container', list_header="containers:",
                        site_title="doron.docker")
 
+#flask site route for getting information from login  form
 @app.route('/logind',methods=['POST'])
 def logind():
  user=request.form.get('user')
@@ -186,6 +188,7 @@ def logind():
 #return the output as list and send it to html template
  return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
 
+#flask site route for logout form
 @app.route('/logout')
 def logout():
   cmd=['sudo', 'docker', 'logout']
@@ -212,17 +215,19 @@ def logout():
 #return the output as list and send it to html template
   return render_template('results.html',header=strings, sub_header='Main Menu:',site_title="doron.docker")
                        
+        #flask site route for image list form
 @app.route('/lstim')
 def lstim():
-        #call funtion d send  the output to html template
+        #call funtion and send  the output to html template
     return render_template('lstim.html',header='Doron Fiala - Docker Menu', sub_header='list Images', list_header="Images:",
                        images=get_images(), site_title="doron.docker")
-
+#flask site route for container list form
 @app.route('/lstco')
 def lstco():
     return render_template('lstco.html',header='Doron Fiala - Docker Menu', sub_header='list containers', list_header="Images:",
                        containers=get_containers(), site_title="doron.docker")
 
+#flask site route for image deletion form
 @app.route('/delim',methods=['GET', 'POST'])
 def delim():
     imgname=request.args.get('img')
@@ -231,6 +236,7 @@ def delim():
     os.system('echo "$({})"'.format(cmd))
     return render_template('delim.html',header='Doron Fiala - Docker Menu', sub_header='Delete Image', list_header="Images:",
                        images=get_images(), site_title="doron.docker")
+#flask site route for getting information from image deletion form
 @app.route('/delimd',methods=['POST'])   
 def delimd():
     imgname=request.form.get('imgname')
@@ -239,11 +245,12 @@ def delimd():
     os.system('echo "$({})"'.format(cmd))
     return render_template('delim.html',header='Doron Fiala - Docker Menu', sub_header='List images', list_header="images:",
                        images=get_images(), site_title="doron.docker")
-
+#flask site route for container deletion form
 @app.route('/delcon')
 def delcon():
     return render_template('delcon.html',header='Doron Fiala - Docker Menu', sub_header='Delete Container', list_header="containers:",
                        containers=get_containers(), site_title="doron.docker")
+#flask site route for getting uinformation from container deletion form
 @app.route('/delcond',methods=['POST'])   
 def delcond():
     cont=request.form.get('cont')
@@ -253,6 +260,7 @@ def delcond():
     return render_template('delcon.html',header='Doron Fiala - Docker Menu', sub_header='Delete Container', list_header="Containers:",
                        containers=get_containers(), site_title="doron.docker")
 
+#flask site route for main menu 
 @app.route('/')
 def index():
                 #use sqlite database to store / recall the dockerhub credentials and login status
@@ -263,7 +271,8 @@ def index():
  conn.commit()
  conn.close()
  return render_template('index.html',header='Doron Fiala Docker App', sub_header='Main Menu:', site_title="doron.docker")
-   
+
+#function to get container list from docker   
 def get_containers():
  containers=[]
  cmd=["docker","ps"]
@@ -275,7 +284,7 @@ def get_containers():
  return containers
  
  
-
+#function to get image list from docker
 def get_images():
  images=[]
  cmd=["docker","images"]
@@ -287,6 +296,7 @@ def get_images():
  return(images) 
  
  
+#starting the flask app 
 if __name__ == '__main__':
  app.run()    
  
