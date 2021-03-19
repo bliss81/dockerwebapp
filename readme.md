@@ -1,5 +1,4 @@
-** video demonstation **  https://www.youtube.com/watch?v=p2vdo-6qNjk&feature=youtu.be
-
+** video demonstation ** https://youtu.be/7pzgxXPitx0
 
 **1** set up ubuntu machine 
 
